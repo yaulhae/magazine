@@ -24,6 +24,14 @@ const AspectInner = styled.div`
   background-size: cover;
 `;
 
+const ImageDefault = styled.div`
+  --size: ${(props) => props.size};
+  width: var(--size);
+  height: var(--size);
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+`;
+
 const StyledImage = (props) => {
   const { shape, size, src } = props;
   const styles = {
@@ -42,7 +50,11 @@ const StyledImage = (props) => {
       </AspectOutter>
     );
   }
-  return <></>;
+  return (
+    <>
+      <ImageDefault {...styles} />
+    </>
+  );
 };
 
 StyledImage.defaultProps = {

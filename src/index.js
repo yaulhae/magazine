@@ -3,12 +3,25 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Router } from "react-router-dom";
+import { applyMiddleware, createStore } from "redux";
+import rootReducer from "./module";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { createBrowserHistory } from "history";
+
+const middlewares = [thunk];
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(...middlewares))
+);
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Provider store={store}>
     <App />
-  </BrowserRouter>,
+  </Provider>,
   document.getElementById("root")
 );
 

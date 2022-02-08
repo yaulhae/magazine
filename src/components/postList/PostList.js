@@ -1,55 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { StyledGrid } from "../../common";
+import InfinityScroll from "../../common/InfinityScroll";
+import { getPostFB } from "../../module/post";
 import PostItem from "./PostItem";
 
 const PostList = () => {
-  const [post, setPost] = useState([
-    {
-      profile: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      insert_dt: "2022-02-05 02:25:05",
-      post_text: "아이고야",
-      post_img: "https://ifh.cc/g/VbyHsy.jpg",
-      like_count: "3",
-      comment_count: "1",
-      checked: false,
-    },
-    {
-      profile: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      insert_dt: "2022-02-05 02:25:05",
-      post_text: "아이고야",
-      post_img: "https://ifh.cc/g/VbyHsy.jpg",
-      like_count: "3",
-      comment_count: "1",
-      checked: false,
-    },
-    {
-      profile: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      insert_dt: "2022-02-05 02:25:05",
-      post_text: "아이고야",
-      post_img: "https://ifh.cc/g/VbyHsy.jpg",
-      like_count: "3",
-      comment_count: "1",
-      checked: false,
-    },
-    {
-      profile: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      insert_dt: "2022-02-05 02:25:05",
-      post_text: "아이고야",
-      post_img: "https://ifh.cc/g/VbyHsy.jpg",
-      like_count: "3",
-      comment_count: "1",
-      checked: false,
-    },
-  ]);
+  const dispatch = useDispatch();
+  const post_list = useSelector(({ post }) => post.list);
+  const user_info = useSelector(({ auth }) => auth.user);
+  const is_loading = useSelector(({ post }) => post.is_loading);
+  const paging = useSelector(({ post }) => post.paging);
+  useEffect(() => {
+    if (post_list.length < 2) {
+      dispatch(getPostFB());
+    }
+  }, []);
+
   return (
     <StyledGrid>
-      {post.map((p, index) => {
-        return <PostItem p={p} />;
-      })}
+      <InfinityScroll
+        callNext={() => {
+          dispatch(getPostFB(paging.next));
+        }}
+        is_next={paging?.next ? true : false}
+        loading={is_loading}
+      >
+        {post_list.map((p, index) => {
+          if (p.user_id === user_info?.uid) {
+            return <PostItem p={p} key={index} is_me />;
+          } else {
+            return <PostItem p={p} key={index} />;
+          }
+        })}
+      </InfinityScroll>
     </StyledGrid>
   );
 };

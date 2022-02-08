@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import MagazineTemplate from "../common/MagazineTemplate";
 import MagazineHeader from "../common/MagazineHeader";
 import PostItem from "../components/postList/PostItem";
@@ -13,53 +13,41 @@ import {
 } from "../common";
 import PostSubmit from "../components/postDetatil/PostSubmit";
 import CommentList from "../components/postDetatil/CommentList";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { firestore } from "../firebase";
+import { getOnePostFB } from "../module/post";
+import { useDispatch } from "react-redux";
+import Permit from "../common/Permit";
 
 const PostDetailPageBlock = styled.div``;
 
 const PostDetailPage = () => {
-  const [p, setP] = useState({
-    profile: "https://ifh.cc/g/VbyHsy.jpg",
-    username: "야울해",
-    insert_dt: "2022-02-05 02:25:05",
-    post_text: "아이고야",
-    post_img: "https://ifh.cc/g/VbyHsy.jpg",
-    like_count: "3",
-    comment_count: "1",
-    checked: false,
-  });
-  const [commentList, setCommentList] = useState([
-    {
-      comment_img: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      comment_text: "재활용이 편리하긴 하다",
-      insert_dt: "2022-02-05 02:25:05",
-    },
-    {
-      comment_img: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      comment_text: "재활용이 편리하긴 하다",
-      insert_dt: "2022-02-05 02:25:05",
-    },
-    {
-      comment_img: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      comment_text: "재활용이 편리하긴 하다",
-      insert_dt: "2022-02-05 02:25:05",
-    },
-    {
-      comment_img: "https://ifh.cc/g/VbyHsy.jpg",
-      username: "야울해",
-      comment_text: "재활용이 편리하긴 하다",
-      insert_dt: "2022-02-05 02:25:05",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const id = useParams().id;
+
+  const user = useSelector(({ auth }) => auth.user);
+  const post_list = useSelector(({ post }) => post.list);
+  const post_idx = post_list.findIndex((p) => p.id === id);
+  const post = post_list[post_idx];
+
+  useEffect(() => {
+    if (post) {
+      return;
+    }
+
+    dispatch(getOnePostFB(id));
+  }, []);
+
   return (
     <MagazineTemplate>
       <PostDetailPageBlock>
-        <MagazineHeader onLogin={true} />
-        <PostItem p={p} />
-        <PostSubmit />
-        <CommentList />
+        <MagazineHeader />
+        {post && <PostItem p={post} is_me={post.user_id === user?.uid} />}
+        <Permit>
+          <PostSubmit post_id={id} />
+        </Permit>
+        <CommentList post_id={id} />
       </PostDetailPageBlock>
     </MagazineTemplate>
   );

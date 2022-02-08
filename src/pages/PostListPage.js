@@ -13,7 +13,7 @@ const PostListPage = () => {
   return (
     <MagazineTemplate>
       <PostListPageBlock>
-        <MagazineHeader onLogin={true} />
+        <MagazineHeader />
         <PostList />
       </PostListPageBlock>
     </MagazineTemplate>

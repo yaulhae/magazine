@@ -14,26 +14,54 @@ const StyledInputBlock = styled.input`
 `;
 
 const StyledInput = (props) => {
-  const { width, padding, font_size, placeholder, is_label, id } = props;
+  const {
+    onSubmit,
+    width,
+    padding,
+    font_size,
+    placeholder,
+    is_label,
+    id,
+    onChange,
+    type,
+    value,
+  } = props;
+
   const styles = {
     width: width,
     padding: padding,
     font_size: font_size,
   };
+
   return (
     <>
       {is_label && <label htmlFor={id}>{is_label}</label>}
-      <StyledInputBlock {...styles} placeholder={placeholder} id={id} />
+      <StyledInputBlock
+        {...styles}
+        placeholder={placeholder}
+        id={id}
+        onChange={onChange}
+        type={type}
+        value={value}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            onSubmit(e);
+          }
+        }}
+      />
     </>
   );
 };
 
 StyledInput.defaultProps = {
+  onSubmit: () => {},
+  type: "text",
   placeholder: false,
   width: "",
   padding: false,
   font_size: false,
   is_label: false,
   id: null,
+  onChange: () => {},
 };
 export default StyledInput;

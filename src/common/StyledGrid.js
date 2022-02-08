@@ -9,23 +9,32 @@ const StyledGridBlock = styled.div`
   display: ${(props) => (props.is_flex ? props.is_flex : "")};
   justify-content: ${(props) => (props.is_flex ? "space-between;" : "")}
   align-items: ${(props) => (props.is_flex ? "center;" : "")};
+  text-align: ${(props) => (props.text_align ? props.text_align : "")}
 }
 `;
 
 const StyledGrid = (props) => {
-  const { is_flex, width, margin, padding, bg, children } = props;
+  const { is_flex, width, margin, padding, bg, children, text_align, onClick } =
+    props;
   const styles = {
     is_flex: is_flex,
     width: width,
     margin: margin,
     padding: padding,
     bg: bg,
+    text_align: text_align,
   };
 
-  return <StyledGridBlock {...styles}>{children}</StyledGridBlock>;
+  return (
+    <StyledGridBlock {...styles} onClick={onClick}>
+      {children}
+    </StyledGridBlock>
+  );
 };
 
 StyledGrid.defaultProps = {
+  onClick: () => {},
+  text_align: false,
   children: null,
   is_flex: false,
   width: "",
