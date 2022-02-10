@@ -92,7 +92,7 @@ const PostWritePage = () => {
       <PostWritePageBlock>
         <MagazineHeader />
         <PostFileUpload is_edit={is_edit} />
-        <PostFileLayOut post={_post} />
+        <PostFileLayOut />
         <PostTextUpload post={_post} is_edit={is_edit} />
       </PostWritePageBlock>
     </MagazineTemplate>

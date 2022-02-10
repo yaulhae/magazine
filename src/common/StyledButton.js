@@ -11,10 +11,14 @@ const StyledButtonBlock = styled.button`
   border-radius: 4px;
   color: white;
   font-size: ${(props) => (props.font_size ? props.font_size : "")};
+  &:disabled {
+    background: #82c9fd;
+  }
 `;
 
 const StyledButton = (props) => {
-  const { children, width, bg, padding, margin, onClick, font_size } = props;
+  const { children, width, bg, padding, margin, onClick, font_size, disabled } =
+    props;
   const styles = {
     bg: bg,
     width: width,
@@ -23,7 +27,7 @@ const StyledButton = (props) => {
     font_size: font_size,
   };
   return (
-    <StyledButtonBlock {...styles} onClick={onClick}>
+    <StyledButtonBlock {...styles} onClick={onClick} disabled={disabled}>
       {children}
     </StyledButtonBlock>
   );

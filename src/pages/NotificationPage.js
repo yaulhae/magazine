@@ -19,7 +19,9 @@ const NotificationPage = () => {
     }
     const notiDB = realtime.ref(`noti/${user.uid}/list`);
     const _noti = notiDB.orderByChild("insert_dt");
+    console.log(_noti);
     _noti.once("value", (snapshot) => {
+      console.log(snapshot);
       if (snapshot.exists()) {
         let _data = snapshot.val();
         console.log(_data);

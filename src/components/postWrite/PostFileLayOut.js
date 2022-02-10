@@ -3,10 +3,13 @@ import React from "react";
 import { StyledGrid, StyledText } from "../../common";
 import postImg from "../../static/124501682-fb25fd00-ddfc-11eb-93ec-c0330dff399b.jpg";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { checkL } from "../../module/post";
 
 const PostFileLayOutBlock = styled.div``;
 
-const PostFileLayOut = ({ post }) => {
+const PostFileLayOut = () => {
+  const dispatch = useDispatch();
   const preview = useSelector(({ image }) => image.preview);
   return (
     <PostFileLayOutBlock>
@@ -18,7 +21,13 @@ const PostFileLayOut = ({ post }) => {
 
       <StyledGrid margin="0 0 2em 0">
         <StyledGrid>
-          <input type="radio" id="img_check" />
+          <input
+            type="radio"
+            id="img_check"
+            name="layout"
+            value="1"
+            onClick={() => dispatch(checkL("right"))}
+          />
           <label forhtml="img_check">오른쪽에 이미지 왼쪽에 텍스트</label>
         </StyledGrid>
       </StyledGrid>
@@ -34,7 +43,13 @@ const PostFileLayOut = ({ post }) => {
 
       <StyledGrid margin="0 0 2em 0">
         <StyledGrid>
-          <input type="radio" id="img_check" />
+          <input
+            type="radio"
+            id="img_check"
+            name="layout"
+            value="2"
+            onClick={() => dispatch(checkL("left"))}
+          />
           <label forhtml="img_check">왼쪽에 이미지 오른쪽에 텍스트</label>
         </StyledGrid>
       </StyledGrid>
@@ -50,7 +65,13 @@ const PostFileLayOut = ({ post }) => {
 
       <StyledGrid margin="0 0 2em 0">
         <StyledGrid>
-          <input type="radio" id="img_check" />
+          <input
+            type="radio"
+            id="img_check"
+            name="layout"
+            value="3"
+            onClick={() => dispatch(checkL("bottom"))}
+          />
           <label forhtml="img_check" className="label-b">
             하단에 이미지 상단에 텍스트
           </label>

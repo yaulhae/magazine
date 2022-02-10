@@ -9,7 +9,6 @@ import RegisterPage from "./pages/RegisterPage";
 import PostListPage from "./pages/PostListPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import PostWritePage from "./pages/PostWritePage";
-import PostUpdatePage from "./pages/PostUpdatePage";
 import { createBrowserHistory } from "history";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -17,8 +16,9 @@ import { loginCheckFB } from "./module/auth";
 import { apiKey } from "./firebase";
 import Permit from "./common/Permit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import NotificationPage from "./pages/NotificationPage";
+import CautionPage from "./pages/CautionPage";
 
 export let history = createBrowserHistory();
 
@@ -35,13 +35,14 @@ function App() {
   return (
     <HistoryRouter history={history}>
       <Routes>
+        <Route path="/" element={<PostListPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/write" element={<PostWritePage />} />
-        <Route path="/" element={<PostListPage />} />
-        <Route path="/detail/:id" element={<PostDetailPage />} />
         <Route path="/write/:id" element={<PostWritePage />} />
+        <Route path="/post/:id" element={<PostDetailPage />} />
         <Route path="/noti" element={<NotificationPage />} />
+        <Route path="/caution" element={<CautionPage />} />
       </Routes>
       <Permit>
         <Link

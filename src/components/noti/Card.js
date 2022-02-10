@@ -7,7 +7,6 @@ const CardBlock = styled.div``;
 
 const Card = (props) => {
   const { image_url, user_name, post_id } = props.n;
-  console.log(props.n);
   return (
     <CardBlock>
       <StyledGrid
@@ -17,7 +16,7 @@ const Card = (props) => {
         margin="10px 0"
         text_align="left"
         onClick={() => {
-          history.push(`/detail/${post_id}`);
+          history.push(`/post/${post_id}`);
         }}
       >
         <StyledGrid width="auto" margin="0px 8px 0px 0px">

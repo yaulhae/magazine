@@ -23,7 +23,6 @@ const PostFileUpload = ({ is_edit }) => {
     const file = fileInput.current.files[0];
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader.result);
       dispatch(setPreview(reader.result));
     };
   };

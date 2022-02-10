@@ -3,6 +3,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import "firebase/compat/database";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBOl4sFvrgX9nkr_FlytGx4dQaCH1ipxJY",
   authDomain: "magazine-project-b5002.firebaseapp.com",
@@ -13,10 +14,10 @@ const firebaseConfig = {
 };
 
 const apiKey = firebaseConfig.apiKey;
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-const authApp = firebaseApp.auth();
-const firestore = firebaseApp.firestore();
+const authApp = firebase.auth();
+const firestore = firebase.firestore();
 const storage = firebase.storage();
 const realtime = firebase.database();
 export { authApp, apiKey, firestore, storage, realtime };

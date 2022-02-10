@@ -30,7 +30,6 @@ const PostDetailPage = () => {
   const post_list = useSelector(({ post }) => post.list);
   const post_idx = post_list.findIndex((p) => p.id === id);
   const post = post_list[post_idx];
-
   useEffect(() => {
     if (post) {
       return;

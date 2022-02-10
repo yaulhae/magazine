@@ -114,7 +114,12 @@ const AuthForm = ({ auth }) => {
           )}
         </StyledGrid>
         {auth === "login" ? (
-          <StyledButton width="100%" bg="#1B9CFC" onClick={login}>
+          <StyledButton
+            width="100%"
+            bg="#1B9CFC"
+            onClick={login}
+            disabled={id === "" || pwd === "" ? true : false}
+          >
             로그인하기
           </StyledButton>
         ) : (
